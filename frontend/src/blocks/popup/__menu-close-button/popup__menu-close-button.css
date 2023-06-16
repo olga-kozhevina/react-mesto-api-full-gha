@@ -1,0 +1,13 @@
+.popup__menu-close-button {
+  background: url(../../../images/close-button.svg) center no-repeat;
+  border: none;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: opacity .3s ease-in-out;
+  padding: 30px 13px 0;
+}
+
+.popup__menu-close-button:hover {
+  opacity: .6;
+}

@@ -1,0 +1,30 @@
+.header__mobile-logout {
+    display: none;
+}
+
+@media screen and (min-width: 600px) {
+    .header__mobile-logout {
+        display: block;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        text-decoration: none;
+        margin: 0;
+        padding: 4px 30px 29px;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 22px;
+        color: #a9a9a9;
+        transition: opacity 0.3s ease-in-out;
+    }
+}
+
+.header__mobile-logout:hover {
+    opacity: .5;
+}
+
+@media screen and (min-width: 900px) {
+    .header__mobile-logout {
+        padding-right: 0;
+    }
+}

@@ -1,0 +1,18 @@
+.header__menu-sign {
+  display: block;
+  width: 24px;
+  height: 20px;
+  padding: 4px 3px 30px;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.header__menu-sign:hover {
+  opacity: .6;
+}
+
+@media (min-width: 600px) {
+  .header__menu-sign {
+    display: none;
+  }
+}

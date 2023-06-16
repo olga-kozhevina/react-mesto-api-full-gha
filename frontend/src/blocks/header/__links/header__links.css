@@ -1,0 +1,13 @@
+.header__links {
+    margin: 0;
+    padding: 28px 27px 0;
+    display: flex;
+    gap: 24px;
+    align-items: start;
+}
+
+@media screen and (min-width: 600px) {
+    .header__links {
+        padding: 28px 0 0;
+    }
+}

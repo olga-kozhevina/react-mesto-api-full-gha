@@ -1,0 +1,12 @@
+.popup__tooltip-sign {
+    display: block;
+    height: 120px;
+    width: 120px;
+    margin: 0 0 40px;
+}
+
+@media screen and (min-width: 600px) {
+    .popup__tooltip-sign {
+        margin-bottom: 32px;
+    }
+}

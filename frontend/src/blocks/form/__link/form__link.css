@@ -1,0 +1,21 @@
+.form__link {
+    text-decoration: none;
+    margin: 0 auto;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    padding: 20px 0 0;
+    color: #fff;
+    cursor: pointer;
+    transition: opacity .3s ease-in-out;
+}
+
+.form__link:hover {
+    opacity: .8;
+}
+
+@media screen and (min-width: 600px) {
+    .form__link {
+        padding-top: 15px;
+    }
+}

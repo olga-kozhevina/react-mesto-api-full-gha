@@ -1,0 +1,14 @@
+.header__mobile-email {
+    display: none;
+}
+
+@media screen and (min-width: 600px) {
+    .header__mobile-email {
+        display: block;
+        margin: 0;
+        padding: 4px 0 0;
+        font-weight: 500;
+        line-height: 22px;
+        font-size: 18px;
+    }
+}

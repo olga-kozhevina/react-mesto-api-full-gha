@@ -1,0 +1,11 @@
+.header__unfold-email {
+  font-size: 18px;
+  margin: 0;
+  padding: 14px 0 0;
+}
+
+@media (min-width: 600px) {
+  .header__unfold-email {
+    display: none;
+  }
+}

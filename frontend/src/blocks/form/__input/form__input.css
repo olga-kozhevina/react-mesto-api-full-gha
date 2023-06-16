@@ -1,0 +1,9 @@
+.form__input {
+    padding-bottom: 13px;
+    width: 100%;
+    border: none;
+    height: 12px;
+    background: #000;
+    color: #fff;
+    border-bottom: 2px solid #CCCCCC;
+}
