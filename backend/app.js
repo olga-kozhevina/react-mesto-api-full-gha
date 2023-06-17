@@ -11,21 +11,6 @@ const errorHandler = require('./utils/errorHandler');
 
 const app = express();
 
-// Логирование запросов
-app.use(morgan('tiny', {
-  stream: {
-    write: (message) => {
-      logger.info(message.trim());
-    },
-  },
-}));
-
-// Логирование ошибок
-app.use((err, req, res, next) => {
-  logger.error(err.stack);
-  next(err);
-});
-
 // подключение к MongoDB
 mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,
@@ -50,20 +35,11 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
-// используем корневой рутер
-app.use('/', router);
-
-// Обработка ошибок Joi validation
-app.use(errors());
-
-// подключаем централизованный обработчик ошибок
-app.use(errorHandler);
-
 // Массив доменов, с которых разрешены кросс-доменные запросы
 const allowedCors = [
-  'https://praktikum.tk',
-  'http://praktikum.tk',
-  'localhost:3000',
+  'https://olpoma.students.nomoredomains.rocks',
+  'http://olpoma.students.nomoredomains.rocks',
+  'localhost:3000'
 ];
 
 // Значение для заголовка Access-Control-Allow-Methods по умолчанию (разрешены все типы запросов)
@@ -94,6 +70,36 @@ app.use((req, res, next) => {
 
   return next();
 });
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
+// Логирование запросов
+app.use(morgan('tiny', {
+  stream: {
+    write: (message) => {
+      logger.info(message.trim());
+    },
+  },
+}));
+
+// Логирование ошибок
+app.use((err, req, res, next) => {
+  logger.error(err.stack);
+  next(err);
+});
+
+// используем корневой рутер
+app.use('/', router);
+
+// Обработка ошибок Joi validation
+app.use(errors());
+
+// подключаем централизованный обработчик ошибок
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   logger.info(`App listening on port ${PORT}`);
