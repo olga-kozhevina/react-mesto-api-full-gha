@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
-const morgan = require('morgan');
 const { logger, errorLogger } = require('./logger');
 const { PORT, MONGO_URL } = require('./config');
 const router = require('./routes');
