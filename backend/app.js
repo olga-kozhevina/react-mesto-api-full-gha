@@ -4,7 +4,7 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const morgan = require('morgan');
-const logger = require('./logger');
+const { logger, errorLogger } = require('./logger');
 const { PORT, MONGO_URL } = require('./config');
 const router = require('./routes');
 const errorHandler = require('./utils/errorHandler');
@@ -34,6 +34,9 @@ const limiter = rateLimit({
 });
 
 app.use(limiter);
+
+// Логирование запросов
+app.use(logger);
 
 // Массив доменов, с которых разрешены кросс-доменные запросы
 const allowedCors = [
@@ -72,26 +75,14 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-// Логирование запросов
-app.use(morgan('tiny', {
-  stream: {
-    write: (message) => {
-      logger.info(message.trim());
-    },
-  },
-}));
-
-// Логирование ошибок
-app.use((err, req, res, next) => {
-  logger.error(err.stack);
-  next(err);
-});
-
 // используем корневой рутер
 app.use('/', router);
 
 // Обработка ошибок Joi validation
 app.use(errors());
+
+// Логирование ошибок
+app.use(errorLogger);
 
 // подключаем централизованный обработчик ошибок
 app.use(errorHandler);

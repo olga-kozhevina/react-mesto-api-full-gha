@@ -1,19 +1,21 @@
 const winston = require('winston');
+const expressWinston = require('express-winston');
 
-const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.json(),
-  defaultMeta: { service: 'user-service' },
+const logger = expressWinston.logger({
   transports: [
-    new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
-    new winston.transports.File({ filename: 'logs/request.log' }),
+    new winston.transports.File({ filename: 'request.log' }),
   ],
+  format: winston.format.json(),
 });
 
-if (process.env.NODE_ENV !== 'production') {
-  logger.add(new winston.transports.Console({
-    format: winston.format.simple(),
-  }));
-}
+const errorLogger = expressWinston.errorLogger({
+  transports: [
+    new winston.transports.File({ filename: 'error.log' }),
+  ],
+  format: winston.format.json(),
+});
 
-module.exports = logger;
+module.exports = {
+  logger,
+  errorLogger
+}
