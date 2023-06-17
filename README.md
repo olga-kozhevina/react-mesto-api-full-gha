@@ -7,7 +7,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.106.194;
+IP-адрес: 158.160.106.194;
 
 Frontend https://olpoma.students.nomoredomains.rocks
 
