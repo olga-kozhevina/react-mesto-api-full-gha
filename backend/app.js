@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
-const { logger, errorLogger } = require('./logger');
+const { requestLogger, errorLogger, logger } = require('./logger');
 const { PORT, MONGO_URL } = require('./config');
 const router = require('./routes');
 const errorHandler = require('./utils/errorHandler');
@@ -35,7 +35,7 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // Логирование запросов
-app.use(logger);
+app.use(requestLogger);
 
 // Массив доменов, с которых разрешены кросс-доменные запросы
 const allowedCors = [
@@ -81,7 +81,7 @@ app.use('/', router);
 app.use(errors());
 
 // Логирование ошибок
-app.use(errorLogger);
+app.use(errorLogger.middleware);
 
 // подключаем централизованный обработчик ошибок
 app.use(errorHandler);
