@@ -37,8 +37,11 @@ app.use(limiter);
 
 // Массив доменов, с которых разрешены кросс-доменные запросы
 const allowedCors = [
-  'https://olpoma.students.nomoredomains.rocks',
   'http://olpoma.students.nomoredomains.rocks',
+  'https://olpoma.students.nomoredomains.rocks',
+  'https://api.olpoma.students.nomoredomains.rocks',
+  'http://api.olpoma.students.nomoredomains.rocks',
+  'http://localhost:3000',
   'localhost:3000',
 ];
 
@@ -46,25 +49,17 @@ const allowedCors = [
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 
 app.use((req, res, next) => {
-  // Сохраняем источник запроса и тип запроса (HTTP-метод) в переменные
   const { origin, method } = req.headers;
-
-  // проверяем, что источник запроса есть среди разрешённых
-  if (allowedCors.includes(origin)) {
-    // устанавливаем заголовок, который разрешает браузеру запросы с этого источника
-    res.header('Access-Control-Allow-Origin', origin);
-  }
-
-  // сохраняем список заголовков исходного запроса
   const requestHeaders = req.headers['access-control-request-headers'];
 
-  // Если это предварительный запрос, добавляем нужные заголовки
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', true);
+  }
+
   if (method === 'OPTIONS') {
-    // разрешаем кросс-доменные запросы любых типов (по умолчанию)
     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    // разрешаем кросс-доменные запросы с этими заголовками
     res.header('Access-Control-Allow-Headers', requestHeaders);
-    // завершаем обработку запроса и возвращаем результат клиенту
     return res.status(200).end();
   }
 
