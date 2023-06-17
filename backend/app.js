@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
-const { requestLogger, errorLogger, logger } = require('./logger');
+const corsHandler = require('./middlewares/corsHandler');
+const { requestLogger, errorLogger, logger } = require('./middlewares/logger');
 const { PORT, MONGO_URL } = require('./config');
 const router = require('./routes');
 const errorHandler = require('./utils/errorHandler');
@@ -37,36 +38,7 @@ app.use(limiter);
 // Логирование запросов
 app.use(requestLogger);
 
-// Массив доменов, с которых разрешены кросс-доменные запросы
-const allowedCors = [
-  'http://olpoma.students.nomoredomains.rocks',
-  'https://olpoma.students.nomoredomains.rocks',
-  'https://api.olpoma.students.nomoredomains.rocks',
-  'http://api.olpoma.students.nomoredomains.rocks',
-  'http://localhost:3000',
-  'localhost:3000',
-];
-
-// Значение для заголовка Access-Control-Allow-Methods по умолчанию (разрешены все типы запросов)
-const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
-
-app.use((req, res, next) => {
-  const { origin, method } = req.headers;
-  const requestHeaders = req.headers['access-control-request-headers'];
-
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-    res.header('Access-Control-Allow-Credentials', true);
-  }
-
-  if (method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    res.header('Access-Control-Allow-Headers', requestHeaders);
-    return res.status(200).end();
-  }
-
-  return next();
-});
+app.use(corsHandler);
 
 app.get('/crash-test', () => {
   setTimeout(() => {

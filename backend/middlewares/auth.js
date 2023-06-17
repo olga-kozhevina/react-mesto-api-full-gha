@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
-    return next(new UnauthorizedError('Authorization required'));
+    throw new UnauthorizedError('Authorization required');
   }
 
   const token = authorization.replace('Bearer ', '');
@@ -13,11 +13,11 @@ module.exports = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, process.env.JWT_SECRET);
+    payload = jwt.verify(token, 'super-secret-key');
   } catch (err) {
-    return next(new UnauthorizedError('Invalid token'));
+    throw new UnauthorizedError('Invalid token');
   }
 
   req.user = payload;
-  return next();
+  next();
 };

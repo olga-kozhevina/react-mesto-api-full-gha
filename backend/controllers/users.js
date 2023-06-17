@@ -21,7 +21,7 @@ const findUser = (id, next) => User.findById(id)
   })
   .catch((err) => {
     if (err.name === 'CastError') {
-      return next(new NotFoundError('User not found'));
+      return next(new BadRequestError('Incorrect search data entered'));
     }
     return next(err);
   });
@@ -68,7 +68,7 @@ const login = (req, res, next) => {
 
   User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, 'super-secret-key', { expiresIn: '7d' });
       res.send({ _id: token });
     })
     .catch((err) => next(err));
