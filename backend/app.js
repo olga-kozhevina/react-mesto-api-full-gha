@@ -81,7 +81,7 @@ app.use('/', router);
 app.use(errors());
 
 // Логирование ошибок
-app.use(errorLogger.middleware);
+app.use(errorLogger);
 
 // подключаем централизованный обработчик ошибок
 app.use(errorHandler);
