@@ -39,7 +39,7 @@ app.use(limiter);
 const allowedCors = [
   'https://olpoma.students.nomoredomains.rocks',
   'http://olpoma.students.nomoredomains.rocks',
-  'localhost:3000'
+  'localhost:3000',
 ];
 
 // Значение для заголовка Access-Control-Allow-Methods по умолчанию (разрешены все типы запросов)
