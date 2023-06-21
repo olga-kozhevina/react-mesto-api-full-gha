@@ -40,11 +40,12 @@ app.use(requestLogger);
 
 app.use(corsHandler);
 
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
+// Удаление карш-теста после успешного прохождения ревью
+// app.get('/crash-test', () => {
+// setTimeout(() => {
+//    throw new Error('Сервер сейчас упадёт');
+//  }, 0);
+// });
 
 // используем корневой рутер
 app.use('/', router);
