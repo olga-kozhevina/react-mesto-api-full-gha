@@ -5,10 +5,9 @@
 
 Адрес репозитория: https://github.com/olga-kozhevina/react-mesto-api-full-gha
 
-## Ссылки на проект
+## Ссылки на проект    
 
-IP 158.160.106.194
+IP 158.160.106.194    
 
-Frontend https://olpoma.students.nomoredomains.rocks
-
-Backend https://api.olpoma.students.nomoredomains.rocks
+Frontend https://olpoma.students.nomoredomains.rocks    
+Backend https://api.olpoma.students.nomoredomains.rocks    
